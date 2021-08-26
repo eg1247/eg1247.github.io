@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>LeetCode #0001 Two Sum</title><meta charset='utf-8'><link href='https://cdn.maxiang.io/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<div><div class="toc"><div class="toc">
+<ul>
+<li><a href="#leetcode-0001-two-sum">LeetCode #0001 Two Sum</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<h1 id="leetcode-0001-two-sum"><a href="https://leetcode.com/problems/two-sum/" target="_blank">LeetCode #0001 Two Sum</a></h1>
+
+<p><strong>Java 知识点</strong> —— <code>初始化</code></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-java hljs"><div class="hljs-line"><span class="hljs-comment">// 一维数组的初始化</span>
+</div><div class="hljs-line"><span class="hljs-keyword">int</span>[] solution = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line"><span class="hljs-keyword">int</span>[] nums1 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>};
+</div></code></pre>
+
+<p><strong>Java 知识点</strong> —— <code>HashMap</code></p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-java hljs"><div class="hljs-line">Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">Integer  val = map.get(nums[i]);  <span class="hljs-comment">// value = map.get(key)</span>
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">map.put(target - nums[i], i); <span class="hljs-comment">// map.put(key, value)</span>
+</div></code></pre>
+
+<p>( <code>?</code> ) 什么要用<code>HashMap</code>?</p>
+
+<blockquote>
+  <p><code>HashMap</code>：基于哈希表的 Map 接口的实现。此实现提供所有可选的映射操作，并允许使用 null 值和 null 键。（除了非同步和允许使用 null 之外，HashMap 类与 Hashtable 大致相同。）此类不保证映射的顺序，特别是它不保证该顺序恒久不变。 此实现假定哈希函数将元素适当地分布在各桶之间，可为基本操作（get 和 put）提供稳定的性能。迭代 collection 视图所需的时间与 HashMap 实例的“容量”（桶的数量）及其大小（键-值映射关系数）成比例。所以，如果迭代性能很重要，则不要将初始容量设置得太高（或将加载因子设置得太低）。</p>
+</blockquote>
+
+<pre class="prettyprint hljs-dark"><code class="language-java hljs"><div class="hljs-line"><span class="hljs-keyword">package</span> LeetCode;
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> java.util.HashMap;
+</div><div class="hljs-line"><span class="hljs-keyword">import</span> java.util.Map;
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span></span>
+</div><div class="hljs-line"><span class="hljs-class"></span>{
+</div><div class="hljs-line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> target)
+</div><div class="hljs-line">    {
+</div><div class="hljs-line">        Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++)
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            Integer  val = map.get(nums[i]);  <span class="hljs-comment">// value = map.get(key)</span>
+</div><div class="hljs-line">            <span class="hljs-keyword">if</span>(val != <span class="hljs-keyword">null</span>)
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{val, i};
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">            <span class="hljs-keyword">else</span>
+</div><div class="hljs-line">            {
+</div><div class="hljs-line">                <span class="hljs-comment">// {2,7,11,15};</span>
+</div><div class="hljs-line">                map.put(target - nums[i], i); <span class="hljs-comment">// map.put(key, value)</span>
+</div><div class="hljs-line">                <span class="hljs-comment">// {9-2, 0} 意思是，7这个数字如果作为key出现了，它所匹配的值就是配对为target的值的索引。</span>
+</div><div class="hljs-line">            }
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LeetCode0001</span> </span>{
+</div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+</div><div class="hljs-line">        <span class="hljs-comment">// TODO code application logic here</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span>[] nums1 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>};
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span> target1 = <span class="hljs-number">9</span>;
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span>[] nums2 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>};
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span> target2 = <span class="hljs-number">6</span>;
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span>[] nums3 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">3</span>, <span class="hljs-number">3</span>};
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span> target3 = <span class="hljs-number">6</span>;
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">        Solution sol = <span class="hljs-keyword">new</span> Solution();
+</div><div class="hljs-line">        <span class="hljs-keyword">int</span>[] result =  sol.twoSum(nums3, target3);
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">        System.out.println(result[<span class="hljs-number">0</span>] + <span class="hljs-string">" "</span> + result[<span class="hljs-number">1</span>]);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><wbr>
+</div></code></pre>
+
+<blockquote>
+  <p><strong>解题过程分析</strong>： <br>
+  设想target是目标，target由数组中的<code>两个数</code>相加得到。 <br>
+  <code>数1</code> 和 <code>数2</code> 暂且称为互补的数。 <br>
+  答案要的是这两个数的<code>索引值</code>（即数组中的下标）。</p>
+  
+  <ul><li><p><strong>【情况1】</strong>使用HashMap，键存放<code>数1</code>，值存放<code>数2的索引</code>。遍历到<code>数1</code>的时候，由<code>i</code>标识，此时返回<code>i</code>和<code>数2的索引</code>（键为<code>数1</code>时对应的<code>值</code>）即构成答案。</p></li>
+  <li><p><strong>【情况2】</strong>HashMap如果找到的键对应的值为null，说明两种可能：①这个值没有互补的数，②这个值的互补数还没加入HashMap. 这两种情况可以统一处理。即，将该值的互补数计算出来，然后按照<strong>【情况1】</strong>进行操作。</p></li>
+  </ul>
+</blockquote></div></body></html>
